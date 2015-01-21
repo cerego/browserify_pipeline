@@ -1,0 +1,6 @@
+require 'rails'
+require 'browserify_pipeline/engine'
+require 'browserify_pipeline/template'
+require 'browserify_pipeline/transformer'
+require 'browserify_pipeline/configuration'
+require 'browserify_pipeline/version'
