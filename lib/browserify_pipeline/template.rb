@@ -8,8 +8,16 @@ module BrowserifyPipeline
 
     def evaluate(scope, locals, &block)
       directory = scope.pathname.dirname.to_s
-      stdout, stderr, status = Open3.capture3({"NODE_PATH" => config.node_path}, "#{shell_command} #{scope.pathname.basename}", chdir: directory)
+      file      = scope.pathname.basename.to_s
 
+      stdout, stderr, status = open3("#{base_command} --list #{shell_options} #{file}", directory)
+      unless status.success?
+        raise "Error finding dependencies: #{stderr}"
+      end
+
+      set_cache_dependencies(scope, stdout.lines.drop(1))
+
+      stdout, stderr, status =  open3("#{base_command} #{shell_options} #{file}", directory)
       if status.success?
         stdout
       else
@@ -23,7 +31,11 @@ module BrowserifyPipeline
       Rails.application.config.browserify_pipeline
     end
 
-    def shell_command
+    def base_command
+      config.browserify_path
+    end
+
+    def shell_options
       if transformer = config.transformer
         transformer_option = "-t [ #{transformer.name} #{transformer.command_line_options} ]"
       else
@@ -36,7 +48,15 @@ module BrowserifyPipeline
         source_map_option = ''
       end
 
-      "#{config.browserify_path} #{source_map_option} #{transformer_option}".strip
+      "#{source_map_option} #{transformer_option}".strip
+    end
+
+    def open3(command, directory)
+      Open3.capture3({"NODE_PATH" => config.node_path}, command, chdir: directory)
+    end
+
+    def set_cache_dependencies(scope, dependencies)
+      dependencies.each { |path| scope.depend_on(path.strip) }
     end
 
   end
