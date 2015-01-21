@@ -1,7 +1,7 @@
 BrowerifyPipeline
 ===
 
-BrowerifyPipeline adds browserify preprocessing to the Rails Asset Pipeline. Just like with files ending in `.js.coffee` files,
+BrowerifyPipeline adds browserify preprocessing to the Rails asset pipeline. Just like with files ending in `.js.coffee` files,
 files ending with `.js.browserify` will be preprocessed with this gem using `browserify`.
 
 Acknowledgments
