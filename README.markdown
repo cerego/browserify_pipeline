@@ -11,6 +11,10 @@ This gem is heavily inspired by [browserify-rails](https://github.com/browserify
 The key distinction of this gem is that it operates on files with special extensions (`.js.browserify`) to preprocess,
 like the CoffeeScript support in the Rails asset pipeline. It's still quite simple and will benefit greatly from feedback and contributions.
 
+Supported Environments
+===
+BrowerifyPipeline should work with Ruby 1.9.3 and higher. It should also work with both Rails 3.2 and Rails 4.
+
 Usage
 ===
 
