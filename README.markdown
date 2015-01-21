@@ -141,4 +141,4 @@ If you'd like to contribute, here are some key areas that will be a great help:
 * Adding additional transformers to the standard collection
 
 To contribute, please fork this repository and submit a pull request. Be sure to include spec files along with your request.
-IF you haven't used RSpec, check its [site](http://rspec.info).
+If you haven't used RSpec, check out its [site](http://rspec.info).
