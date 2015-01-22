@@ -90,7 +90,7 @@ end
 ```ruby
 module MyApp
   class Application < Rails::Application
-    config.browserify_pipeline.transformers << Coffeeify.new
+    config.browserify_pipeline.add_transformer Coffeeify.new
   end
 end
 ```
