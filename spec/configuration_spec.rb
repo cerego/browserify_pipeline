@@ -21,8 +21,12 @@ RSpec.describe(BrowserifyPipeline::Configuration) do
     let(:transformer) { BrowserifyPipeline::Transformer::Base.new('name') }
 
     it 'allows adding a transformer' do
-      configuration.transformers << transformer
+      configuration.add_transformer transformer
       expect(configuration.transformers).to eq [transformer]
+    end
+
+    it 'throws an error when passing a non-Transformer::Base subclass instance' do
+      expect { configuration.add_transformer Class.new.new }.to raise_error(ArgumentError)
     end
 
   end
