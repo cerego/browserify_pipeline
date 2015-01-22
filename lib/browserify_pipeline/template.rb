@@ -36,19 +36,19 @@ module BrowserifyPipeline
     end
 
     def shell_options
-      if transformer = config.transformer
-        transformer_option = "-t [ #{transformer.name} #{transformer.command_line_options} ]"
-      else
-        transformer_option =  ''
-      end
-
       if config.generate_source_map
         source_map_option = '-d'
       else
         source_map_option = ''
       end
 
-      "#{source_map_option} #{transformer_option}".strip
+      "#{source_map_option} #{transformers_option}".strip
+    end
+
+    def transformers_option
+      config.transformers.map do |transformer|
+        "-t [ #{transformer.name} #{transformer.command_line_options} ]"
+      end.join(' ')
     end
 
     def open3(command, directory)

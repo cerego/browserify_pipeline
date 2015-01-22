@@ -66,10 +66,10 @@ Configuration
 
 BrowerifyPipeline supports four types of configuration, set in your environment files or `application.rb`, using `config.browserify_pipeline`
 
-transformer
+transformers
 ---
 
-BrowerifyPipeline allows you to use transformers with browserify. A transformer has a name and commandline options passed to it.
+BrowerifyPipeline allows you to use a collection of transformers with browserify. A transformer has a name and commandline options passed to it.
 
 Transformers should be subclasses of `BrowerifyPipeline::Transformer::Base`
 
@@ -84,13 +84,13 @@ class Coffeeify < BrowerifyPipeline::Transformer::Base
 end
 ```
 
-**Using the transformer**
+**Adding the transformers**
 
 `config/application.rb`
 ```ruby
 module MyApp
   class Application < Rails::Application
-    config.browserify_pipeline.transformer = Coffeeify.new
+    config.browserify_pipeline.transformers << Coffeeify.new
   end
 end
 ```

@@ -2,18 +2,11 @@ module BrowserifyPipeline
   # Configuration settings:
   # transformer, node_path, browserify_path, generate_source_map
   class Configuration
-    attr_reader :transformer
     attr_writer :node_path
-    attr_accessor :generate_source_map
+    attr_accessor :generate_source_map, :transformers
 
-    def transformer=(transformer_instance)
-      unless transformer_instance.is_a?(BrowserifyPipeline::Transformer::Base)
-        raise ArgumentError.new('Please pass a subclass of BrowserifyPipeline::Transformer::Base')
-      end
-
-      raise ArgumentError.new('transformer already set') if @transformer
-
-      @transformer = transformer_instance
+    def initialize
+      self.transformers = []
     end
 
     # Since Rails.root won't be set until after this configuration is
