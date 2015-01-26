@@ -1,3 +1,16 @@
+0.0.4
+---
+
+Summary
+===
+
+Bug fix release
+
+Details
+===
+
+* `SixToFiveify` transformer now correctly applies to JS files as well.
+
 0.0.3
 ---
 
