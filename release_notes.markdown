@@ -1,3 +1,16 @@
+0.0.5
+---
+
+Summary
+===
+
+Change 6to5 to Babel: [blog post](https://babeljs.io/blog/2015/02/15/not-born-to-die/)
+
+Details
+===
+
+* `SixToFiveify` transformer now called `Babel` and runs `babel`, not `6to5`
+
 0.0.4
 ---
 
