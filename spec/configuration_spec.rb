@@ -68,9 +68,5 @@ RSpec.describe(BrowserifyPipeline::Configuration) do
       expect(configuration.node_path).to eq path
     end
 
-    it 'uses the default assets paths from Rails' do
-      pending "This object shouldn't depend on being somewhere in the Rails boot process"
-      expect(false).to be_truthy
-    end
   end
 end
