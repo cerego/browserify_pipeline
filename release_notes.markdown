@@ -1,3 +1,16 @@
+0.0.6
+---
+
+Summary
+===
+
+Bugfix for `Babel` transformer
+
+Details
+===
+
+`Babel` runs `babelify`, not `babel`
+
 0.0.5
 ---
 
