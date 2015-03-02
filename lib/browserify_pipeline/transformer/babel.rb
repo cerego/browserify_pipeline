@@ -5,7 +5,7 @@ module BrowserifyPipeline
     class Babel < Base
 
       def initialize(command_line_options = '--extensions .browserify --extensions .js')
-        super('babel', command_line_options)
+        super('babelify', command_line_options)
       end
 
     end
