@@ -1,3 +1,40 @@
+0.0.7
+---
+
+Summary
+===
+
+Support multiple binaries to allow using wrappers around browserify.
+Provide support for [browserify-incremental](https://github.com/jsdf/browserify-incremental) to speed up development reloads.
+
+Details
+===
+
+Two configuration settings have had their defaults removed, and must be set externally: `node_path`,  and the new `browserify_command`
+This is done to remove dependance on Rails, making things more testable and robust.
+
+`node_path` must be set after boot, in `after_initialize`:
+
+```ruby
+config.after_initialize do |app|
+  app.config.browserify_pipeline.node_path = Rails.application.config.assets.paths.map(&:to_s).join(":")
+end
+```
+
+`browserify_command` is a class that provides a `cli_string` that serves as the basis for the command:
+
+`application.rb`
+```ruby
+  config.browserify_pipeline.browserify_command = BrowserifyPipeline::Command::Browserify.new("#{Rails.root}/node_modules/.bin")
+```
+
+Install `browserify-incremental` with `npm` to use incremental compilation in development. You need to provide a path for the compiler to store cached JSON:
+
+`development.rb`
+```ruby
+  config.browserify_pipeline.browserify_command = BrowserifyPipeline::Command::BrowserifyIncremental.new("#{Rails.root}/node_modules/.bin", "#{Rails.root}/tmp")
+```
+
 0.0.6
 ---
 

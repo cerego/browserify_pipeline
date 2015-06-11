@@ -64,7 +64,29 @@ curl "http://localhost:3000/assets/example.js"
 Configuration
 ===
 
-BrowerifyPipeline supports four types of configuration, set in your environment files or `application.rb`, using `config.browserify_pipeline`
+BrowerifyPipeline supports four types of configuration, set in your environment files or `application.rb`, using `config.browserify_pipeline`.
+`browserify_command` must be set by your application, while the others have defaults.
+
+browserify_command
+---
+
+Allows you to specifiy an object offering a `cli_string` for the `browserify` executable.
+
+`application.rb`
+```ruby
+module MyApp
+  class Application < Rails::Application
+    config.browserify_pipeline.browserify_command = BrowserifyPipeline::Command::Browserify.new("#{Rails.root}/node_modules/.bin")
+  end
+end
+```
+
+Install [`browserify-incremental`](https://github.com/jsdf/browserify-incremental) with `npm` to use incremental compilation in development. You need to provide a path for the compiler to store cached JSON:
+
+`development.rb`
+```ruby
+  config.browserify_pipeline.browserify_command = BrowserifyPipeline::Command::BrowserifyIncremental.new("#{Rails.root}/node_modules/.bin", "#{Rails.root}/tmp")
+```
 
 transformers
 ---
@@ -95,8 +117,6 @@ module MyApp
 end
 ```
 
-
-
 generate_source_map
 ---
 
@@ -110,28 +130,18 @@ module MyApp
 end
 ```
 
-browserify_path
----
-
-Allows you to specifiy the path to the `browserify` executable. Defaults to `"#{Rails.root}/node_modules/.bin/browserify"`
-
-```ruby
-module MyApp
-  class Application < Rails::Application
-    config.browserify_pipeline.default_browserify_path = '/data/node_modules/.bin/browserify'
-  end
-end
-```
-
 node_path
 ---
 
-Allows you to specifiy the `NODE_PATH` environment variable used when running the `browserify` executable. Defaults to the Rails asset paths.
+Allows you to specifiy the `NODE_PATH` environment variable used when running the `browserify` executable.
+This must be set after initialization if you use your asset paths:
 
 ```ruby
 module MyApp
   class Application < Rails::Application
-    config.browserify_pipeline.node_path = 'node_path'
+    config.after_initialize do |app|
+      app.config.browserify_pipeline.node_path = Rails.application.config.assets.paths.map(&:to_s).join(":")
+    end
   end
 end
 ```
