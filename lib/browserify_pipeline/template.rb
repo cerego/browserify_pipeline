@@ -10,14 +10,17 @@ module BrowserifyPipeline
       directory = scope.pathname.dirname.to_s
       file      = scope.pathname.basename.to_s
 
-      stdout, stderr, status = open3("#{base_command} --list #{shell_options} #{file}", directory)
+      command = base_command(file)
+      options = shell_options
+
+      stdout, stderr, status = open3("#{command} --list #{options} #{file}", directory)
       unless status.success?
         raise "Error finding dependencies: #{stderr}"
       end
 
       set_cache_dependencies(scope, stdout.lines.drop(1))
 
-      stdout, stderr, status =  open3("#{base_command} #{shell_options} #{file}", directory)
+      stdout, stderr, status = open3("#{command} #{options}", directory)
       if status.success?
         stdout
       else
@@ -31,8 +34,8 @@ module BrowserifyPipeline
       Rails.application.config.browserify_pipeline
     end
 
-    def base_command
-      config.browserify_path
+    def base_command(file)
+      config.browserify_command.cli_string(file)
     end
 
     def shell_options
