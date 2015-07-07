@@ -1,3 +1,11 @@
+0.0.8
+---
+
+Summary
+===
+
+Fix Rails dependancy
+
 0.0.7
 ---
 

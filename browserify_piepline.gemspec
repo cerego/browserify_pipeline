@@ -11,7 +11,7 @@ Gem::Specification.new do |s|
   s.summary     = %q{Browserify preprocessor for the Rails asset pipeline.}
   s.description = %q{Browserify preprocessor for the Rails asset pipeline.}
 
-  s.add_runtime_dependency "rails", "~> 3.2.0", '< 5.0'
+  s.add_runtime_dependency "rails", ">= 3.2.0", '< 5.0'
   s.add_runtime_dependency "sprockets", "~> 2.0"
   s.add_runtime_dependency 'tilt'
 

@@ -1,8 +1,8 @@
 PATH
   remote: .
   specs:
-    browserify_pipeline (0.0.7)
-      rails (~> 3.2.0, < 5.0)
+    browserify_pipeline (0.0.8)
+      rails (>= 3.2.0, < 5.0)
       sprockets (~> 2.0)
       tilt
 
