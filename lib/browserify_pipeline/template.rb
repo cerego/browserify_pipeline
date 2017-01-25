@@ -1,4 +1,5 @@
 require 'tilt'
+require 'open3'
 
 module BrowserifyPipeline
   class Template < ::Tilt::Template
